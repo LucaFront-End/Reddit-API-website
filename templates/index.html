@@ -1,0 +1,48 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subreddit Searcher</title>
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='reddit.ico') }}">
+
+    <!-- Link to the styles.css file -->
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Search Interface Subreddits</h1>
+    
+    <!-- Formulario de búsqueda -->
+    <form action="/search" method="post">
+      <label for="search">Search</label>
+      <input id="keyword" type="search" name="keyword" pattern=".*\S.*" required>
+      <span class="caret"></span>
+    </form>
+
+    {% if keyword %}
+        <p class="results">Results for: <strong>{{ keyword }}</strong></p>
+    {% endif %}
+
+    <ul>
+        {% for post in posts %}
+             <a href="{{ post.url }}" target="_blank">
+                <li>
+                    <p>Date: {{ post.date }}</p>
+                    <p>Subreddit: {{ post.subreddit }}</p>
+                    <p>Karma: {{ post.karma }}</p>
+                    <p>Username: {{ post.username }}</p>
+                    <p>Tags: {{ post.tags }}</p>
+                    <p>Title: {{ post.title }}</p>
+                    <p>URL: {{ post.url }}</p>
+                </li>
+            </a>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
